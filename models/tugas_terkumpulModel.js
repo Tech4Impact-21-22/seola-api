@@ -1,32 +1,32 @@
 var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 var tugas_terkumpulSchema = new Schema({
-	'modul' : {
-	 	type: Schema.Types.ObjectId,
-	 	ref: 'modul'
+	'modul': {
+		type: Schema.Types.ObjectId,
+		ref: 'modul'
 	},
-	'user' : {
-	 	type: Schema.Types.ObjectId,
-	 	ref: 'user'
+	'user': {
+		type: Schema.Types.ObjectId,
+		ref: 'user'
 	},
-	'file_tugas' : String,
-	'tanggal_kumpul' : {
+	'file_tugas': String,
+	'tanggal_kumpul': {
 		type: Date,
 		default: Date.now
 	},
-	'tanggal_nilai' : Date,
-	'status' : {
+	'tanggal_nilai': Date,
+	'status': {
 		type: String,
 		enum: {
 			values: ['Disetujui', 'Ditolak'],
 			message: '{VALUE} tidak tersedia'
 		}
 	},
-	'rating' : Number,
-	'poin' : Number,
-	'komentar' : String,
-	'saran' : String
+	// 'rating' : Number,
+	'poin': Number,
+	'komentar': String,
+	'saran': String
 });
 
-module.exports = mongoose.model('tugas_terkumpul', tugas_terkumpulSchema);
+module.exports = mongoose.model('tugas_terkumpul', tugas_terkumpulSchema, "tugas_terkumpul");

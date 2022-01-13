@@ -29,7 +29,7 @@ module.exports = {
     show: function (req, res) {
         var id = req.params.id;
 
-        KelasModel.findOne({_id: id}, function (err, kelas) {
+        KelasModel.findOne({ _id: id }, function (err, kelas) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting kelas.',
@@ -52,12 +52,12 @@ module.exports = {
      */
     create: function (req, res) {
         var kelas = new KelasModel({
-			bidang_seni : req.body.bidang_seni,
-			nama_kelas : req.body.nama_kelas,
-			deskripsi : req.body.deskripsi,
-			foto_kelas : req.body.foto_kelas,
-			nama_mentor : req.body.nama_mentor,
-			foto_mentor : req.body.foto_mentor
+            bidang_seni: req.body.bidang_seni,
+            nama_kelas: req.body.nama_kelas,
+            deskripsi: req.body.deskripsi,
+            foto_kelas: req.body.foto_kelas,
+            nama_mentor: req.body.nama_mentor,
+            foto_mentor: req.body.foto_mentor
         });
 
         kelas.save(function (err, kelas) {
@@ -78,7 +78,7 @@ module.exports = {
     update: function (req, res) {
         var id = req.params.id;
 
-        KelasModel.findOne({_id: id}, function (err, kelas) {
+        KelasModel.findOne({ _id: id }, function (err, kelas) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting kelas',
@@ -93,12 +93,12 @@ module.exports = {
             }
 
             kelas.bidang_seni = req.body.bidang_seni ? req.body.bidang_seni : kelas.bidang_seni;
-			kelas.nama_kelas = req.body.nama_kelas ? req.body.nama_kelas : kelas.nama_kelas;
-			kelas.deskripsi = req.body.deskripsi ? req.body.deskripsi : kelas.deskripsi;
-			kelas.foto_kelas = req.body.foto_kelas ? req.body.foto_kelas : kelas.foto_kelas;
-			kelas.nama_mentor = req.body.nama_mentor ? req.body.nama_mentor : kelas.nama_mentor;
-			kelas.foto_mentor = req.body.foto_mentor ? req.body.foto_mentor : kelas.foto_mentor;
-			
+            kelas.nama_kelas = req.body.nama_kelas ? req.body.nama_kelas : kelas.nama_kelas;
+            kelas.deskripsi = req.body.deskripsi ? req.body.deskripsi : kelas.deskripsi;
+            kelas.foto_kelas = req.body.foto_kelas ? req.body.foto_kelas : kelas.foto_kelas;
+            kelas.nama_mentor = req.body.nama_mentor ? req.body.nama_mentor : kelas.nama_mentor;
+            kelas.foto_mentor = req.body.foto_mentor ? req.body.foto_mentor : kelas.foto_mentor;
+
             kelas.save(function (err, kelas) {
                 if (err) {
                     return res.status(500).json({

@@ -11,8 +11,10 @@ var eventRouter = require('./eventRoutes');
 
 var profileRouter = require('./profileRoutes');
 
+var userController = require('../controllers/userController.js');
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Seola' });
 });
 
@@ -26,5 +28,7 @@ router.use('/tugas', tugas_terkumpulRouter);
 router.use('/event', eventRouter);
 
 router.use('/profile', profileRouter);
+
+router.get('/leaderboard', userController.listLeaderboard);
 
 module.exports = router;

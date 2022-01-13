@@ -7,6 +7,7 @@ const { authenticateJWT } = require('../middlewares/auth')
  * GET
  */
 router.get('/', authenticateJWT, userController.list);
+// router.get('/', userController.list);
 
 /*
  * GET
