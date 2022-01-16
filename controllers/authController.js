@@ -17,26 +17,26 @@ module.exports = {
      * authController.register()
      */
     register: async function (req, res) {
+        console.log(req.body)
         try {
-            const password = passwordHash.generate(req.body.password);
+            const password = passwordHash.generate(req.body.password, {});
             const avatar = "https://avatars.dicebear.com/api/initials/" + req.body.nama_depan + ".svg";
 
             var user = new UserModel({
-                nama_depan : req.body.nama_depan,
-                nama_belakang : req.body.nama_belakang,
-                email : req.body.email,
-                password : password,
-                foto_profil : avatar,
-                bidang_seni : req.body.bidang_seni
+                nama_depan: req.body.nama_depan,
+                nama_belakang: req.body.nama_belakang,
+                email: req.body.email,
+                password: password,
+                foto_profil: avatar,
+                bidang_seni: req.body.bidang_seni
             });
 
             const dataUser = await user.save();
             const modul = await ModulModel.find({ kelas: req.body.bidang_seni });
-            
-            for(const item in modul)
-            {
+
+            for (const item in modul) {
                 /** Menambahkan setiap modul ke colection progres_siswa dengan default BELUM */
-                if(modul[item].tugas != undefined) {
+                if (modul[item].tugas != undefined) {
                     var progres = new ProgresModel({
                         user: dataUser.id,
                         modul: modul[item].id,
@@ -53,7 +53,7 @@ module.exports = {
             }
 
             res.status(200).json(dataUser);
-        } catch(error) {
+        } catch (error) {
             res.status(422).send({
                 error: error.message
             })
@@ -64,10 +64,12 @@ module.exports = {
      * authController.login()
      */
     login: function (req, res) {
+        console.log(req.body)
         const email = req.body.email;
         const password = req.body.password;
 
         UserModel.findOne({ email: email }, function (err, user) {
+            console.log(user)
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting user.',
@@ -83,8 +85,7 @@ module.exports = {
 
             const verify = passwordHash.verify(password, user.password);
 
-            if(verify == true)
-            {
+            if (verify == true) {
                 const userToken = {
                     id: user.id,
                     email: user.email
@@ -110,7 +111,7 @@ module.exports = {
      * authController.logout()
      */
     logout: function (req, res) {
-        if(req.headers.authorization) {
+        if (req.headers.authorization) {
             const token = req.headers.authorization.split(' ')[1]
 
             var blacklist = new BlacklistModel({ token: token });
@@ -122,7 +123,7 @@ module.exports = {
                         error: err
                     });
                 }
-    
+
                 return res.status(201).json({
                     message: "Logout success"
                 });
